@@ -1,0 +1,205 @@
+{% extends 'payroll_app/Navbar.html' %}
+{% load static %}
+
+<html>
+    <head>
+        <title>Add Employees</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static '/bootstrap/css/custom.css' %}">
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    </head>
+
+    <body>
+        {% block content %}
+
+        <div class="container">
+            <div class="row" style="margin-left: 200px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><b>Name: </b> {{ e.name }}</p>
+                        <p><b>ID Number: </b> {{e.id_number}}</p>
+                    </div>
+    
+                    <div class="col-md-6">
+                        <p><b>Date: </b>{{ p.date_range }}</p>
+                        <p><b>Payslip ID: </b>{{ payslipID }}</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p>{{ emp }}</p>
+                        <p>{{ employee.getID }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <hr>
+        
+        <div class="container">
+            <div class="row" style="margin-left: 50px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Earnings</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <p>Base Pay</p>                                 
+                                </tr>
+                                <tr>
+                                    <p>Allowances</p>
+                                </tr>
+                                <tr>
+                                    <p>Overtime</p>
+                                </tr>
+                            </thead>
+                            <hr>
+                            <!-- <tbody>
+                                <tr>
+                                    <td>{{ base_pay }}</td>
+                                    <td>{{ allowance }}</td>
+                                    <td>{{ overtime }}</td>
+                                </tr>
+                                <hr>
+                            </tbody> -->
+                        </table>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h4>Amount:</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <p> {{base_pay}} </p>
+                                </tr>
+                                <tr>
+                                    <p> {{allowance}}</p>
+                                </tr>
+                                <tr>
+                                    <p> {{overtime}} </p>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                <hr>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <h4>Gross Pay</h4>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4>PHP {{grossPay}}</h4>
+                    </div>
+
+                    <hr>
+                    <div class="col-md-6">
+                        <h4>Deductions:</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <p>W/HOLDING TAX</p>
+                                </tr>
+                                <tr>
+                                    <p>PHILHEALTH</p>
+                                </tr>
+                                <tr>
+                                    <p>SSS</p>
+                                </tr>
+                                <tr>
+                                    <p>PAG-IBIG</p>
+                                </tr>
+                            </thead>
+                            <hr>
+                            
+                            <tbody>
+                                <!-- <tr>
+                                    <td>{{ holding  }}</td>
+                                    <td>${{ philhealth }}</td>
+                                    <td>${{ SSS }}</td>
+                                </tr> -->
+
+                            
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4 style="color: white;">#</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <p>{{wTax}}</p>
+                                </tr>
+                                <tr>
+                                    <p>{{ph}}</p>
+                                </tr>
+                                <tr>
+                                    <p>{{sss}}</p>
+                                </tr>
+                                <tr>
+                                    <p>{{pagIbig}}</p>
+                                </tr>
+                            </thead>
+                            <hr>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>{{</td>
+                                    <td>${{ pay }}</td>
+                                    <td>${{ pay }}</td>
+                                </tr>
+
+                                <hr> -->
+                                
+                            </tbody>
+
+                            
+                        </table>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h4>Total Deductions:</h4>
+                        
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4>PHP {{deductions}}</h4>
+                        
+                    </div>
+                    <hr>
+
+                    <div class="col-md-6">
+                        <h2>NET PAY:</h2>
+                        
+                    </div>
+
+                    <div class="col-md-6">
+                        <h2>PHP {{netPay}}</h2>
+                        
+                    </div>
+                    
+                
+                
+                </div>
+                
+                
+                </div>
+                
+    
+                </div>
+            </div>
+        </div>
+
+
+        {% endblock %}
+    </body>
+</html>
+
+    
+
+

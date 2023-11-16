@@ -1,0 +1,171 @@
+{% extends 'payroll_app/Navbar.html' %}
+{% load static %}
+
+<html>
+    <head>
+        <title>Payslips</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static '/bootstrap/css/custom.css' %}">
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+    </head>
+    <body>
+        {% block content %}
+        <div class="container-fluid">           
+            <div class="col-12 mx-auto">  
+                <div class="row">
+                    
+                    {% comment %} Payroll Creation {% endcomment %}
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header " style="background-color: #cdeefd;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <b><h4>Payroll Creation </h4></b>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <p class= "text-danger">{{ msg }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form method='POST' action="{% url 'createPayslip'%}">
+                                    {% csrf_token %}
+                                    {% comment %} Payroll For {% endcomment %}
+                                    <div class="form-group row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="payFor" class="pt-2"><b>Payroll For</b></label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <select id="payFor" name="payFor" class="form-control">
+                                                        <option disabled selected>Choose...</option>
+                                                        <option value = "all employees">ALL EMPLOYEES </option>
+                                                        {% for e in employees %}
+                                                            <option value = "{{e.id_number}}">{{e.id_number}}</option>
+                                                        {%endfor%}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    {% comment %} Month & Year {% endcomment %}
+                                    <div class="form-group row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="monthSelect" class="pt-2"><b>Month</b></label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <select id="inputState" name="monthSelect" class="form-control">
+                                                        <option value="" disabled selected>Choose...</option>
+                                                        <option value="January">January</option>
+                                                        <option value="February">February</option>
+                                                        <option value="March">March</option>
+                                                        <option value="April">April</option>
+                                                        <option value="May">May</option>
+                                                        <option value="June">June</option>
+                                                        <option value="July">July</option>
+                                                        <option value="August">August</option>
+                                                        <option value="September">September</option>
+                                                        <option value="October">October</option>
+                                                        <option value="November">November</option>
+                                                        <option value="December">December</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label for="Year"><b>Year</b></label>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input id="Year" class="form-control" type="number" name="Year" min=0>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+  
+                                    {% comment %} Cycle {% endcomment %}
+                                    <div class="form-group row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="Cycle" class="pt-2"><b>Cycle</b></label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <select id="Cycle" name = "Cycle" class="form-control">
+                                                        <option disabled selected>Choose...</option>
+                                                        <option value = "1">Cycle 1</option>
+                                                        <option value = "2">Cycle 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {% comment %}  {% endcomment %}
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-success mt-3">Create Payroll</button>
+                                    </div>                                    
+                                </form>
+                            </div>                            
+                        </div>
+                    </div>
+
+                    {% comment %} Payslips Summary {% endcomment %}
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <b><h4>Payslips Summary</h4></b>
+                            </div>
+                            <div class="col-md-7">
+                                <p class= "text-danger">{{ msg }}</p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table custom-table-striped">
+                                    <thead class="text-center" style="background-color: #0077b6; color: white;">
+                                        <th scope="col"> ID Number </th>
+                                        <th scope="col"> Date </th>
+                                        <th scope="col"> Cycle </th>
+                                        <th scope="col"> Total Pay </th>
+                                        <th scope="col" class="text-center">Options</th>
+                                    </thead>                          
+                                    <tbody>
+                                        {% for e in payslips %}
+                                        <tr class="text-center" style="background-color: {% cycle '#cdeefd' '#ffffff' %};">
+                                            <td>  {{ e.id_number.id_number }} </td>
+                                            <td>  {{ e.date_range }} </td> 
+                                            <td>  {{ e.pay_cycle }} </td>
+                                            <td>  {{ e.total_pay }} </td>
+                                            <td>
+                                                <div class="row text-center">
+                                                    <div class='col-md-12'>
+                                                        <a href="{% url 'viewPayslips' id=e.pk %}"  class="btn btn-dark">Details</a>
+                                                    </div>                                                  
+                                                </div>
+                                            </td>
+                                        </tr>      
+                                        {% endfor %}                     
+                                    </tbody>                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        {% endblock %}  
+    </body>
+</html>

@@ -1,0 +1,6 @@
+cloudrun-serviceaccount@alvero-amador-fausto-cloudrun.iam.gserviceaccount.com
+
+https://codelabs.developers.google.com/codelabs/cloud-run-django#4 - tutorial
+https://www.youtube.com/watch?v=_ZMGp-bSQhg - docker
+https://medium.com/@lhennessy/running-django-on-google-cloud-run-with-cloudsql-ac8141095b77 - use?
+https://cloud.google.com/python/django/run - check also

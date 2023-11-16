@@ -1,0 +1,86 @@
+{% extends 'payroll_app/Navbar.html' %}
+{% load static %}
+
+<html>
+    <head>
+        <title>Suppliers</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static '/bootstrap/css/custom.css' %}">
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    </head>
+    <body>
+        {% block content %}
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-md-auto">
+                        <b><h2>Payroll Creation</h2></b>
+                    </div>
+                    <div class="col-md-auto">
+                        <a href="{% url 'addEmployee' %}">
+                            <button type="button" class="btn btn-secondary">+ Add Employee</button>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table custom-table-striped">
+                            <thead class="text-center" style="background-color: #0077b6; color: white;">
+                                <th scope="col"> Name </th>
+                                <th scope="col"> ID Number </th>
+                                <th scope="col"> Rate </th>
+                                <th scope="col"> Overtime Pay </th>
+                                <th scope="col"> Allowance </th>
+                                <th scope="col" class="text-center">Options</th>
+
+                            </thead>                          
+                            <tbody>
+                                {% for e in employees %}
+                                <tr class="text-center" style="background-color: {% cycle '#cdeefd' '#ffffff' %};">
+                                    <td>  {{ e.name }} </td>
+                                    <td>  {{ e.id_number }} </td>
+                                    <td>  {{ e.rate }} </td>
+                                    <td>  {{ e.overtime_pay }} </td>
+                                    <td>  {{ e.allowance }} </td>
+                                    <td> 
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-12">
+                                                {% comment %} update and overtime form {% endcomment %}
+                                                <form method='POST' action="{% url 'addOvertime' id=e.id_number %}">
+                                                    {% csrf_token %}
+                                                    <div class="row d-flex justify-content-center mb-2">
+                                                        <div class="col-md-4 d-flex justify-content-end">
+                                                            <button type="submit" class="btn btn-primary">Add Overtime</button> 
+                                                        </div>  
+                                                        
+                                                        <div class="col-md-4 ">
+                                                            <input class="form-control" type="number" name="OvertimeHours" id="OvertimeHours" placeholder="Overtime Hours">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                
+                                                {% comment %} delete and add overtime {% endcomment %}
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-2 ">
+                                                        <a href = "{% url "updateEmployee" id_number=e.id_number%}" class= "btn btn-success">Update</a>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href = "{% url "deleteEmployee" id_number=e.id_number%}" class = "btn btn-danger"> Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>      
+                                {% endfor %}                     
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>  
+        {% endblock %}  
+    </body>
+</html>
